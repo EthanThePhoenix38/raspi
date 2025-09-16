@@ -1,0 +1,52 @@
+repos:
+  # Basic hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: check-docstring-first
+
+  # Python code formatting
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        language_version: python3
+
+  # Python linting
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-docstrings]
+
+  # Type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.3.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-requests]
+
+  # Security scanning
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: ['-r', 'src/']
+        exclude: tests/
+
+  # Dependency scanning for known security vulnerabilities
+  # Note: Safety scan requires authentication, uncomment when needed
+  # - repo: local
+  #   hooks:
+  #     - id: safety
+  #       name: safety
+  #       entry: safety
+  #       args: [scan, --json]
+  #       language: system
+  #       files: requirements.*\.txt$
