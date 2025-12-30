@@ -1,0 +1,47 @@
+name: Auto Pull Request
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - develop
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && !startsWith(github.ref_name, 'dependabot/')
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "feat: automatic pull request for ${{ github.ref_name }}"
+        title: "🤖 Auto PR: ${{ github.ref_name }}"
+        body: |
+          ## Automatic Pull Request
+
+          This PR was automatically created for branch `${{ github.ref_name }}`.
+
+          ### Changes
+          - Branch: `${{ github.ref_name }}`
+          - Commit: ${{ github.sha }}
+
+          ### Checklist
+          - [ ] Code has been tested
+          - [ ] Documentation has been updated (if necessary)
+          - [ ] Security checks pass
+          - [ ] All CI checks pass
+
+          ---
+          *This PR was created automatically by GitHub Actions*
+        branch: ${{ github.ref_name }}
+        base: main
+        draft: false
+        labels: |
+          automated-pr
+          needs-review
