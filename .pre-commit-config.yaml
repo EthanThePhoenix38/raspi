@@ -39,6 +39,7 @@ repos:
       - id: bandit
         args: ['-r', 'src/']
         exclude: tests/
+        additional_dependencies: ['pbr>=5.0.0']
 
   # Dependency scanning for known security vulnerabilities
   # Note: Safety scan requires authentication, uncomment when needed

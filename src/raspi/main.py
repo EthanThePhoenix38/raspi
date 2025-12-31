@@ -21,7 +21,7 @@ def get_system_info() -> Dict[str, Any]:
 
 
 def main() -> None:
-    """Main entry point for the raspi configuration tool."""
+    """Run the raspi configuration tool."""
     info = get_system_info()
     print("System Information:")
     for key, value in info.items():

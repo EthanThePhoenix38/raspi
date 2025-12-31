@@ -3,7 +3,7 @@
 from raspi.main import get_system_info
 
 
-def test_get_system_info():
+def test_get_system_info() -> None:
     """Test that system info returns expected keys."""
     info = get_system_info()
 
@@ -13,7 +13,7 @@ def test_get_system_info():
         assert info[key] is not None
 
 
-def test_get_system_info_types():
+def test_get_system_info_types() -> None:
     """Test that system info returns correct types."""
     info = get_system_info()
 
